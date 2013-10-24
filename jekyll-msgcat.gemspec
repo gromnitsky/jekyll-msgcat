@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Jekyll::Msgcat::VERSION
   spec.authors       = ["Alexander Gromnitsky"]
   spec.email         = ["alexander.gromnitsky@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = "Multi-Lingual Interface With Jekyll"
+  spec.summary       = "Multi-lingual interface with Jekyll via .yaml message catalogs."
+  spec.homepage      = "https://github.com/gromnitsky/jekyll-msgcat"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
@@ -18,9 +18,10 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "andand", "~> 1.3.3"
-  spec.add_development_dependency "safe_yaml", "~> 0.9.7"
+  spec.add_dependency "bundler", "~> 1.3"
+  spec.add_dependency "andand", "~> 1.3.3"
+  spec.add_dependency "safe_yaml", "~> 0.9.7"
+
   spec.add_development_dependency "minitest"
   spec.add_development_dependency "rake"
 end
