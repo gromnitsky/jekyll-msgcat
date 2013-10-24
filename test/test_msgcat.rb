@@ -61,7 +61,11 @@ class MsgcatTest < Minitest::Test
 
 
   def test_cur_page_in_another_locale__this_locale
-    assert "<a href='#' class='btn btn-primary btn-xs disabled'>ru</a>", cur_page_in_another_locale('ru')
+    assert_equal "<a href='#' class='btn btn-primary btn-xs disabled'>ru</a>", cur_page_in_another_locale('ru')
+  end
+
+  def test_cur_page_in_another_locale__this_locale_custom_class
+    assert_equal "<a href='#' class='myclass1 myclass2 disabled'>ru</a>", cur_page_in_another_locale('ru', "myclass1 myclass2")
   end
 
   def test_cur_page_in_another_locale__no_url_in_config
