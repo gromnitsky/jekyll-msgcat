@@ -28,9 +28,7 @@ module Jekyll
 
     # Return a string ('lt', for example) or nil.
     def __get_locale
-      site = __get_site
-      return nil unless site.andand['msgcat'].andand['locale']
-      site['msgcat']['locale']
+      __get_site.andand['msgcat'].andand['locale']
     end
 
     # Extract localized version of 'input' from message catalog or
@@ -50,17 +48,14 @@ module Jekyll
     def cur_page_in_another_locale targetLocale, cssClass = 'btn btn-primary btn-xs'
       raise 'target locale requred' if targetLocale =~ /^\s*$/
 
-      site = @context.registers[:site].config
+      site = __get_site
       pattern = "<a href='%s' class='#{cssClass} %s'>#{targetLocale}</a>"
-
-      locale = 'en'
-      locale = site['msgcat']['locale'] if site['msgcat'] && site['msgcat']['locale']
+      locale = __get_locale || 'en'
 
       # current site
       return pattern % ['#', 'disabled'] if locale == targetLocale
 
-      deploy = 'domain'
-      deploy = site['msgcat']['deploy'] if site['msgcat'] && site['msgcat']['deploy']
+      deploy = site.andand['msgcat'].andand['deploy'] || 'domain'
 
       if deploy == 'domain'
         begin

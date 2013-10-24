@@ -83,6 +83,12 @@ class MsgcatTest < Minitest::Test
     assert_equal "<a href='http://lt.example.com/foo/bar' class='btn btn-primary btn-xs '>lt</a>", cur_page_in_another_locale('lt')
   end
 
+  def test_cur_page_in_another_locale__domain_no_deploy_no_msgcat
+    @context.registers[:site].config['msgcat'] = nil
+    @context.registers[:site].config['url'] = 'http://lt.example.com'
+    assert_equal "<a href='http://lt.example.com/foo/bar' class='btn btn-primary btn-xs '>lt</a>", cur_page_in_another_locale('lt')
+  end
+
   def test_cur_page_in_another_locale__domain
     @context.registers[:site].config['msgcat']['deploy'] = 'domain'
     @context.registers[:site].config['url'] = 'http://lt.example.com'
@@ -99,6 +105,7 @@ class MsgcatTest < Minitest::Test
   end
 
   def test_cur_page_in_another_locale__nearby
+    @context.registers[:site].config['msgcat']['locale'] = 'uk'
     @context.registers[:site].config['msgcat']['deploy'] = 'nearby'
     @context.registers[:site].config['baseurl'] = '/blog/lt'
     assert_equal "<a href='/blog/lt/foo/bar' class='btn btn-primary btn-xs '>lt</a>", cur_page_in_another_locale('lt')
