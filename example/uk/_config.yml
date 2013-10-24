@@ -1,0 +1,8 @@
+name: Your New Jekyll Site
+markdown: redcarpet
+pygments: true
+
+msgcat:
+  locale: uk
+  # may be 'domain' or 'nearby'
+  deploy: nearby
