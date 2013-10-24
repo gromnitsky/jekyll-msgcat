@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'minitest/autorun'
 require 'pp'
 require 'ostruct'
 require 'uri'
@@ -24,6 +23,8 @@ module Site_ru
     @context_orig = @context
   end
 end
+
+require 'minitest/autorun'
 
 class MsgcatTest < Minitest::Test
   include Site_ru

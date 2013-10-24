@@ -82,3 +82,8 @@ module Jekyll
 
   end
 end
+
+# Register a new Liquid filter
+if defined? Liquid::Template
+  Liquid::Template.register_filter Jekyll::Msgcat
+end
