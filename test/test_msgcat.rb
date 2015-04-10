@@ -26,7 +26,7 @@ end
 
 require 'minitest/autorun'
 
-class MsgcatTest < Minitest::Test
+class MsgcatTest < Minitest::Unit::TestCase
   include Site_ru
   include Jekyll::Msgcat
 
@@ -62,11 +62,15 @@ class MsgcatTest < Minitest::Test
 
 
   def test_cur_page_in_another_locale__this_locale
-    assert_equal "<a href='#' class='btn btn-primary btn-xs disabled'>ru</a>", cur_page_in_another_locale('ru')
+    assert_equal "<a href='#' class=' disabled'>ru</a>", cur_page_in_another_locale('ru')
+  end
+
+  def test_cur_page_in_another_locale__this_locale_custom_label
+    assert_equal "<a href='#' class=' disabled'>Booo</a>", cur_page_in_another_locale('ru', 'Booo')
   end
 
   def test_cur_page_in_another_locale__this_locale_custom_class
-    assert_equal "<a href='#' class='myclass1 myclass2 disabled'>ru</a>", cur_page_in_another_locale('ru', "myclass1 myclass2")
+    assert_equal "<a href='#' class='myclass1 myclass2 disabled'>ru</a>", cur_page_in_another_locale('ru', nil, "myclass1 myclass2")
   end
 
   def test_cur_page_in_another_locale__no_url_in_config
@@ -81,19 +85,19 @@ class MsgcatTest < Minitest::Test
   def test_cur_page_in_another_locale__domain_no_deploy
     @context.registers[:site].config['msgcat']['deploy'] = nil
     @context.registers[:site].config['url'] = 'http://lt.example.com'
-    assert_equal "<a href='http://lt.example.com/foo/bar' class='btn btn-primary btn-xs '>lt</a>", cur_page_in_another_locale('lt')
+    assert_equal "<a href='http://lt.example.com/foo/bar' class=' '>lt</a>", cur_page_in_another_locale('lt')
   end
 
   def test_cur_page_in_another_locale__domain_no_deploy_no_msgcat
     @context.registers[:site].config['msgcat'] = nil
     @context.registers[:site].config['url'] = 'http://lt.example.com'
-    assert_equal "<a href='http://lt.example.com/foo/bar' class='btn btn-primary btn-xs '>lt</a>", cur_page_in_another_locale('lt')
+    assert_equal "<a href='http://lt.example.com/foo/bar' class=' '>lt</a>", cur_page_in_another_locale('lt')
   end
 
   def test_cur_page_in_another_locale__domain
     @context.registers[:site].config['msgcat']['deploy'] = 'domain'
     @context.registers[:site].config['url'] = 'http://lt.example.com'
-    assert_equal "<a href='http://lt.example.com/foo/bar' class='btn btn-primary btn-xs '>lt</a>", cur_page_in_another_locale('lt')
+    assert_equal "<a href='http://lt.example.com/foo/bar' class=' '>lt</a>", cur_page_in_another_locale('lt')
   end
 
   def test_cur_page_in_another_locale__nearby_no_baseurl
@@ -109,7 +113,7 @@ class MsgcatTest < Minitest::Test
     @context.registers[:site].config['msgcat']['locale'] = 'uk'
     @context.registers[:site].config['msgcat']['deploy'] = 'nearby'
     @context.registers[:site].config['baseurl'] = '/blog/lt'
-    assert_equal "<a href='/blog/lt/foo/bar' class='btn btn-primary btn-xs '>lt</a>", cur_page_in_another_locale('lt')
+    assert_equal "<a href='/blog/lt/foo/bar' class=' '>lt</a>", cur_page_in_another_locale('lt')
   end
 
 end

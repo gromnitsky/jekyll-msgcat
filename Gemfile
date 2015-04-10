@@ -1,4 +1,4 @@
-#ruby=ruby-2.0.0
+#ruby=ruby-2.1.3
 #ruby-gemset=msgcat
 source 'https://rubygems.org'
 

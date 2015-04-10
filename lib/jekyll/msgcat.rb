@@ -13,9 +13,10 @@ module Jekyll
       return @@__msgcat if @@__msgcat
 
       begin
-        @@__msgcat = YAML.load_file MSGCAT_DB, :safe => false
+        file = File.join (__get_site["source"] || "./"), MSGCAT_DB
+        @@__msgcat = YAML.load_file file, :safe => false
       rescue
-        $stderr.puts "msgcat warning: #{MSGCAT_DB} not found"
+        $stderr.puts "msgcat warning: `#{file}` not found: #{$!}"
         return nil
       end
 
@@ -45,11 +46,11 @@ module Jekyll
       (msg = msgcat[locale][input]) ? msg : input
     end
 
-    def cur_page_in_another_locale targetLocale, cssClass = 'btn btn-primary btn-xs'
+    def cur_page_in_another_locale targetLocale, label = nil, cssClass = nil
       raise 'target locale requred' if targetLocale =~ /^\s*$/
 
       site = __get_site
-      pattern = "<a href='%s' class='#{cssClass} %s'>#{targetLocale}</a>"
+      pattern = "<a href='%s' class='#{cssClass} %s'>#{label || targetLocale}</a>"
       locale = __get_locale || 'en'
 
       # current site
