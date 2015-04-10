@@ -37,8 +37,9 @@ Create ``_msgcat.yaml``:
 	uk:
 	  'Home': На головну сторiнку
 
-``_msgcat.yaml`` file **must** be in a directory where the site source
-is (e.g. in the save directory you provide in ``jekyll -s foo/bar``).
+``_msgcat.yaml`` file **must** be in a directory where the site
+sources are (e.g. the same directory you provide in ``jekyll -s
+foo/bar`` command).
 
 And use in Liquid templates:
 
